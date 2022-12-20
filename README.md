@@ -1,4 +1,6 @@
 # flutter_brandi
+
+## 기능 정의 목록
  
 * 카카오 'Daum 검색 - 이미지 검색' api를 사용하여 이미지 검색 앱을 만들어 주세요.
   * 카카오 Developer 계정은 개인 계정으로 만들어 주세요.
@@ -23,3 +25,10 @@
 * 전체화면에서 이전화면으로 이동할 수 있어야 하고, 전체 화면에서 이전화면으로 되돌아 갈 때 이전 화면의 검색 결과와 스크롤 포지션이 유지되도록 해주세요.
 * 오픈소스 라이브러리는 자유롭게 사용 가능해요.
 * 안드로이드, iOS 모두 빌드 및 구동이 되어야 해요. iOS는 개인 개발 키로 서명이 가능하면 됩니다.
+
+## 사용 라이브러리
+* Getx (상태 관리자 / 내비게이션)
+* flutter_screenutil (기기별 화면 텍스트 sp 단위 사용)
+* json_annotation & json_serializable (api response body serialize)
+* cached_network_image (image url로 보여줌)
+* http (다음 이미지 검색 api 호출 및 응답)
