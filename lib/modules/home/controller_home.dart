@@ -7,10 +7,13 @@ import 'package:flutter_search_jisulee/model/document.dart';
 import 'package:flutter_search_jisulee/model/search.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/subjects.dart';
 
 class HomeController extends GetxController {
-  StreamController ctrl = StreamController();
   final ScrollController scrollController = ScrollController();
+
+  final keywordDebounce = PublishSubject<VoidCallback>();
 
   static HomeController get to => Get.find();
 
@@ -31,11 +34,13 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+ 
     scrollController.addListener(() async {
       _setCurrentScrollPosition();
       await _addSearchData();
     });
+
+    keywordDebounce.debounceTime(Duration(seconds: 1)).forEach((f) => f());
   }
 
   @override
@@ -85,8 +90,7 @@ class HomeController extends GetxController {
 
   searchKeyword(String keyword) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-
-    _debounce = Timer(const Duration(milliseconds: 1000), () async {
+    keywordDebounce.add(() async {
       if (_searchKeyword.value != keyword) {
         clearResultList();
       }
